@@ -1,4 +1,4 @@
-import chai from 'chai';
+
 
 import {
   str2hex,
@@ -18,112 +18,112 @@ describe('hex operation', () => {
 
   it('hex string to ArrayBuffer', () => {
     var a = str2hex('aabbccddeeff112233445566778899');
-    chai.assert.isTrue(a instanceof ArrayBuffer);
+    expect(a instanceof ArrayBuffer).toBeTruthy();
   });
   it('hex string to ArrayBuffer throws error', () => {
-    chai.expect(() => {
+    expect(() => {
       a = str2hex('a');
-    }).throw(Error);
+    }).toThrow(Error);
   });
 
   it('hex string to Uint8Array', () => {
     var a = str2bytes('aabbccddeeff112233445566778899');
-    chai.assert.isTrue(a instanceof Uint8Array);
+    expect(a instanceof Uint8Array).toBeTruthy();
   });
 
   it('number to hex string', () => {
-    chai.assert.equal('01', toDigist(1));
-    chai.assert.equal('0a', toDigist(10));
-    chai.assert.equal('0f', toDigist(15));
+    expect('01').toEqual( toDigist(1));
+    expect('0a').toEqual( toDigist(10));
+    expect('0f').toEqual( toDigist(15));
   });
 
   it('ArrayBuffer to hex string', () => {
     var a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0xa];
 
-    chai.assert.equal("0102030405060708090a", hex2str(a));
+    expect("0102030405060708090a").toEqual( hex2str(a));
 
-    chai.assert.equal("0102030405060708090a", hex2str(new Uint8Array(a)));
-    chai.assert.equal("0102030405060708090a", hex2str(new Uint8Array(a).buffer));
+    expect("0102030405060708090a").toEqual( hex2str(new Uint8Array(a)));
+    expect("0102030405060708090a").toEqual( hex2str(new Uint8Array(a).buffer));
 
-    chai.assert.equal("03040506", hex2str(a, 2, 4));
-    chai.assert.equal("03040506", hex2str(new Uint8Array(a), 2, 4));
-    chai.assert.equal("03040506", hex2str(new Uint8Array(a).buffer, 2, 4));
+    expect("03040506").toEqual( hex2str(a, 2, 4));
+    expect("03040506").toEqual( hex2str(new Uint8Array(a), 2, 4));
+    expect("03040506").toEqual( hex2str(new Uint8Array(a).buffer, 2, 4));
 
-    chai.expect(() => {
+    expect(() => {
       hex2str('a');
-    }).throw(Error);
+    }).toThrow(Error);
   });
 
 
 
   it('Array equals', () => {
-    chai.assert.isTrue(arrayEquals([1, 2], [1, 2]));
+    expect(arrayEquals([1, 2], [1, 2])).toBeTruthy();
 
-    chai.assert.isTrue(arrayEquals(new Uint8Array([1, 2]), new Uint8Array([1, 2])));
+    expect(arrayEquals(new Uint8Array([1, 2]), new Uint8Array([1, 2]))).toBeTruthy();
 
-    chai.expect(() => {
-      chai.assert.isFalse(arrayEquals(1, 2));
-    }).throw(Error);
+    expect(() => {
+      expect(arrayEquals(1, 2)).toBeTruthy();
+    }).toThrow(Error);
 
 
 
-    chai.assert.isFalse(arrayEquals([1, 2], [3, 4]));
+    expect(arrayEquals([1, 2], [3, 4])).toBeFalsy();
 
-    chai.assert.isTrue(arrayEquals(new Uint8Array([1, 2]), [1, 2]));
+    expect(arrayEquals(new Uint8Array([1, 2]), [1, 2])).toBeTruthy();
   });
 
   it('copyOf', () => {
 
     var a = [1, 2, 3, 4, 5];
     var b = copyOf(a, 2);
-    chai.assert.isTrue(arrayEquals(b, [1, 2]));
+    expect(arrayEquals(b, [1, 2])).toBeTruthy();
 
 
     var c = new Uint8Array(a);
     var d = copyOf(c, 3);
-    chai.assert.isTrue(arrayEquals(d, [1, 2, 3]));
+    expect(arrayEquals(d, [1, 2, 3])).toBeTruthy();
 
 
   });
 
 
   it('toShort', () => {
-    chai.assert.equal(0x0009, toShort([0x9,0x0],0));
-    chai.assert.equal(0x1009, toShort([0x9,0x10],0));
-    chai.expect(() => {
+    expect(0x0009).toEqual( toShort([0x9,0x0],0));
+    expect(0x1009).toEqual( toShort([0x9,0x10],0));
+    expect(() => {
       toShort([],0);
-    }).throw(Error);
+    }).toThrow(Error);
 
-    chai.expect(() => {
+    expect(() => {
       toShort([1,2],1);
-    }).throw(Error);
+    }).toThrow(Error);
 
   });
 
   it('toInt', () => {
-    chai.assert.equal(0x0a030201, toInt([0x1,0x2,0x3,0x0a],0));
-    chai.expect(() => {
+    expect(0x0a030201).toEqual( toInt([0x1,0x2,0x3,0x0a],0));
+    expect(() => {
       toInt([],0);
-    }).throw(Error);
+    }).toThrow(Error);
 
-    chai.expect(() => {
+    expect(() => {
       toInt([1,2],0);
-    }).throw(Error);
+    }).toThrow(Error);
 
-    chai.expect(() => {
+    expect(() => {
       toInt([1,2,3],0);
-    }).throw(Error);
+    }).toThrow(Error);
 
 
-    chai.expect(() => {
+    expect(() => {
       toInt([1,2,3,4],1);
-    }).throw(Error);
+    }).toThrow(Error);
   });
 
 
   it('padLeftZero', () => {
-    chai.assert.equal('03', padLeftZero('3',2));
-    chai.assert.equal('000a', padLeftZero('a',4));
+    expect('03').toEqual( padLeftZero('3',2));
+    expect('000a').toEqual( padLeftZero('a',4));
     
   });
 });
