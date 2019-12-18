@@ -54,7 +54,7 @@ export function str2bytes(str) {
     return new Uint8Array(0);
   }
   if (str.length % 2 != 0) {
-    throw new Error('字符串长度不是偶数');
+    throw new Error('字符串'+str+'长度不是偶数');
   }
   //两个两个字节转化，
   var c = str.length / 2;
